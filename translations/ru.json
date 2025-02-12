@@ -1,0 +1,48 @@
+{
+  "onboarding": {
+    "message": "Добро пожаловать на сайт приложения Obites"
+  },
+  "settings": {
+    "about": "О приложении",
+    "app_name": "Имя приложения",
+    "arabic": "Арабский",
+    "english": " Английский",
+    "hebrew": "Иврит",
+    "russian": "Русский",
+    "generale": "Общие настройки",
+    "github": "Github",
+    "language": "Язык",
+    "links": "Ссылки",
+    "logout": "Выйти",
+    "more": "Больше",
+    "privacy": "Политика конфиденциальности",
+    "rate": "Оценка",
+    "share": "Поделиться",
+    "support": "Поддержка",
+    "support_us": "Поддержите нас",
+    "terms": "Условия сервиса",
+    "theme": {
+      "dark": "Темный",
+      "light": "Светлый",
+      "system": "Системный",
+      "title": "Фон"
+    },
+    "title": "Настройки",
+    "version": "Версия",
+    "website": "Веб-сайт"
+  },
+  "tabs" :{
+     "plants": "Растения",
+     "notes": "Список сообщений",
+     "style": "Стиль",
+     "settings": "Настройки",
+     "bluetooth": "Связь с блоком"
+  },  
+  "feed": {
+    "title": "Список",
+    "create": "Новое сообщение",
+    "post": "Сообщение",
+     "plantmanager": "Plants"
+  },
+  "welcome": "Добро пожаловать на сайт Obytes"
+}

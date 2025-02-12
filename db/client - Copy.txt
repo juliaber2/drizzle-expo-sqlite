@@ -1,0 +1,46 @@
+import { drizzle } from "drizzle-orm/expo-sqlite"
+import { Asset } from "expo-asset/build/Asset";
+import { openDatabaseSync } from "expo-sqlite/next"
+//import * as FileSystem from 'expo-file-system';
+
+const expoDb = openDatabaseSync("notes.db")
+//const expoDb = openDatabaseSync("plant.db");
+export const db = drizzle(expoDb)
+
+console.log('*** After opening plantDb: plantDb=' + db._.tableNamesMap );
+// create temporary db from initial files, if db doesn't exist
+// Object.getOwnPropertyNames(plantDb.options).forEach(prop => console.log(prop));
+// console.log("plantDb: tables number=" + allRows.length);
+// plantDb.withTransactionSync(() => {
+//   plantDb.execAsync("SELECT * FROM watering_program;").then((allRows) => {
+//     console.log("AFTER: getAll tables number:" + allRows);
+//   });
+// });
+
+// plantDb.withTransactionSync(() => {
+//     plantDb.execAsync('CREATE TABLE IF NOT EXISTS watering_program (id TEXT PRIMARY KEY , name TEXT, type TEXT, description TEXT);');
+// });
+
+// plantDb.withTransactionSync(() => {
+//     plantDb.execAsync('CREATE TABLE IF NOT EXISTS sensor (id TEXT PRIMARY KEY , name TEXT, type TEXT, description TEXT);');
+// });
+
+//allRows = plantDb.getAllSync(`SELECT name FROM sqlite_master WHERE type='table' ;`);
+
+// console.log("AFTER: getAll tables number:" + allRows.length);
+// for (const row of allRows) {
+//     console.log("next item: " + row['name']);
+//     Object.getOwnPropertyNames(row).forEach(prop => console.log(prop));
+// }
+
+// const testDb = openDatabaseSync("test.db");
+// console.log('After opening test.db: testDb=' + testDb.databaseName);
+
+// allRows = testDb.getAllSync(`SELECT * FROM watering_program;`);
+
+// //console.log("testDb: tables" );
+// console.log(allRows.length);
+// for (const row of allRows) {
+//     console.log("next item: " + row['name']);
+//     Object.getOwnPropertyNames(row).forEach(prop => console.log(prop));
+// }

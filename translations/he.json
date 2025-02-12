@@ -1,0 +1,47 @@
+{
+  "onboarding": {
+    "message": "ברוכים הבאים לאתר האפליקציה"
+  },
+  "settings": {
+    "about": "אוֹדוֹת",
+    "app_name": "שם האפליקציה",
+    "arabic": "עֲרָבִית",
+    "english": "אנגלית",
+    "hebrew": "עִברִית",
+    "russian": "רוּסִי",
+    "generale": "כְּלָלִי",
+    "github": "Github",
+    "language": "שפה",
+    "links": "קישורים",
+    "logout": "התנתק",
+    "more": "עוד",
+    "privacy": "מדיניות פרטיות",
+    "rate": "דרג",
+    "share": "שתף",
+    "support": "תמיכה",
+    "support_us": "תמכו אותנו",
+    "terms": "תנאי שירות",
+    "theme": {
+      "dark": "כֵּהֶה",
+      "light": "בהיר",
+      "system": "של המערכת",
+      "title": "צבע רקע"
+    },
+    "title": "הגדרות",
+    "version": "גרסה",
+    "website": "אתר"
+  },
+  "tabs" :{
+     "notes": "Notes",
+     "style": "Style",
+     "settings": "Settings",
+     "bluetooth": "Devices",
+     "plants": "Plants"
+  },  
+  "feed": {
+    "title": "Feed",
+    "create": "Create",
+    "post": "Post"
+  },
+  "welcome": "ברוכים הבאים לאתר אפליקציית obytes"
+}
