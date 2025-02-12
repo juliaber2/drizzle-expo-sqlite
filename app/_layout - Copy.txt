@@ -1,0 +1,181 @@
+import { Icon } from "@/components/themed"
+import { useLoadAssets } from "@/hooks/use-load-assets"
+import { useSearchActions } from "@/hooks/use-note-store"
+import "@/styles/global.css"
+import {
+	DarkTheme,
+	DefaultTheme,
+	ThemeProvider,
+} from "@react-navigation/native"
+import { Link, Stack } from "expo-router"
+import { useColorScheme } from "nativewind"
+import { useState, useEffect } from "react"
+import { Pressable } from "react-native"
+import * as FileSystem from 'expo-file-system';
+import * as SQLite from 'expo-sqlite';
+import { Asset } from 'expo-asset';
+
+// Catch any errors thrown by the Layout component.
+export { ErrorBoundary } from "expo-router"
+
+// Ensure that reloading on `/edit` keeps a back button present.
+export const unstable_settings = {
+	initialRouteName: "index",
+}
+
+// const clearCache = async () => {
+
+// 	console.log('*** clearCache');
+
+// 	const cacheDirectory = FileSystem.cacheDirectory;
+// 	if (cacheDirectory != null) {
+// 		await FileSystem.deleteAsync(cacheDirectory, { idempotent: true });
+// 		console.log('Cache cleared: ' + cacheDirectory);
+// 	}
+// };
+
+// const getFiles = async () => {
+// 	console.log('*** getFiles');
+
+// 	let directory = `${FileSystem.documentDirectory}`;
+// 	let res = (await (FileSystem.readDirectoryAsync(directory)));
+// 	res.forEach(entry => { console.log(' documentDirectory content: name: ' + JSON.stringify(entry)); });
+
+// 	let fileName = "../assets/texts/plant.db"
+// 	console.log('read asset from file: ' + fileName);
+
+// 	const [{ localUri }] = await Asset.loadAsync(require(fileName));
+// 	console.log('localUri" ' + localUri);
+// 	// if (localUri)
+// 	// 	console.log(
+// 	// 		"readAsStringAsync:",
+// 	// 		await FileSystem.readAsStringAsync(localUri)
+// 	// 	);
+// };
+
+async function openDatabase() {
+
+	// Call this function when you want to clear the cache
+	//clearCache();
+	// See all files in directory
+	//getFiles();
+
+	// const dbName = 'plant.db';
+	// console.log('*** openDatabase');
+
+	// const databaseDir = `${FileSystem.documentDirectory}texts/${dbName}`; 
+	// console.log('*** databaseDir=' + databaseDir + ' bundleDir=' + FileSystem.bundleDirectory);
+
+	// Check if the database already exists in the file system
+	// const dbExists = await FileSystem.getInfoAsync(databaseDir);
+	// console.log('dbExists=' + dbExists.exists);
+
+	// if (!dbExists.exists) {
+	// 	try {
+	// Copy from assets (assuming assets/db folder exists and is bundled correctly)
+	// 		await FileSystem.copyAsync({
+	// 			from: FileSystem.bundleDirectory + dbName, // Adjust path if needed
+	// 			to: databaseDir,
+	// 		});
+	// 		console.log('Database copied successfully!');
+	// 	} catch (error) {
+	// 		console.error('Failed to copy database:', error);
+	// 	}
+	// } else {
+	// 	console.log('Database already exists at:', databaseDir);
+	// }
+
+	// Open the SQLite database
+	//let dataBase = SQLite.openDatabase(dbName);
+
+	//console.log('dataBase=' + JSON.stringify(dataBase));
+
+	//return dataBase;
+}
+
+
+export default function RootLayout() {
+	const { isLoaded } = useLoadAssets()
+	const [data, setData] = useState([]);
+
+	// useEffect(() => {
+	// 	const loadDb = async () => {
+	// 		const db = await openDatabase();
+	// 		console.log('useEffect: Database opened: db=' + JSON.stringify(db));
+
+	// 		db.execAsync([{
+	// 			sql: `
+	// 			DROP TABLE IF EXISTS blobs;
+	// 			CREATE TABLE IF NOT EXISTS blobs (id INTEGER PRIMARY KEY NOT NULL, data BLOB);
+	// 			`, args: []
+	// 		}], false).then((results) => {
+	// 			console.log('DROP TABLE IF : ' + JSON.stringify(results));
+	// 		});
+
+
+	// 		const blob = new Uint8Array([0x00, 0x01, 0x02, 0x03, 0x04, 0x05]);
+	// 		await db.execAsync([{
+	// 			sql: `INSERT INTO blobs (data) VALUES (?)`, args: [blob]
+	// 		}], false).then((results) => {
+	// 			console.log('INSERT INTO blobs: ' + JSON.stringify(results));
+	// 		});
+
+	// 		// const row = await db.getFirstAsync<{ data: Uint8Array }>('SELECT * FROM blobs');
+	// 		// expect(row.data).toEqual(blob);
+
+	// 		db.transaction((tx) => {
+	// 			console.log('Read from db');
+	// 			tx.executeSql("SELECT * FROM plants;", [], (results) => {
+	// 				console.log('Read results');
+	// 				const rows = results;
+
+	// 			});
+	// 		},);
+	// 	};
+
+	// 	loadDb();
+	// }, []);
+
+	if (!isLoaded) return null
+	return <RootLayoutNavigation />
+}
+
+function RootLayoutNavigation() {
+	const { colorScheme } = useColorScheme()
+	const { onChangeSearchText } = useSearchActions()
+
+	return (
+		<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme} >
+			<Stack>
+				<Stack.Screen
+					name="index"
+					options={{
+						title: "Notes",
+						headerLargeTitle: true,
+						headerSearchBarOptions: {
+							placeholder: "Search notes",
+							onChangeText: ({ nativeEvent }) =>
+								onChangeSearchText(nativeEvent.text),
+						},
+						headerRight: () => (
+							<Link href="/edit" asChild>
+								<Pressable className="active:opacity-50">
+									<Icon
+										name="plus-circle"
+										className="text-3xl text-blue-600 dark:text-blue-400"
+									/>
+								</Pressable>
+							</Link>
+						),
+					}}
+				/>
+				<Stack.Screen
+					name="edit"
+					options={{
+						presentation: "modal",
+					}}
+				/>
+			</Stack>
+		</ThemeProvider>
+	)
+}
